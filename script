@@ -1,10 +1,11 @@
 local library = {}
 
-function library.Create(Text)
+function library.Create(Text,CanvasSize)
 if game:GetService("CoreGui"):FindFirstChild("ModMenu")then game:GetService("CoreGui").ModMenu:Destroy() end    
     local Object = {}
     local self2 = Object
     local self = library
+    CanvasSize = CanvasSize or 2
     
     local ModMenu = Instance.new("ScreenGui")
 local Title = Instance.new("TextLabel")
@@ -69,6 +70,7 @@ Main.BackgroundTransparency = 1.000
 Main.Position = UDim2.new(0, 0, 0.00333333341, 0)
 Main.Size = UDim2.new(0, 135, 0, 298)
 Main.ScrollBarImageTransparency = 1
+Main.CanvasSize = UDim2.new(0,0, CanvasSize,0)
 
 UIGridLayout.Parent = Main
 UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
