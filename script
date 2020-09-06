@@ -321,10 +321,7 @@ local NameLabel = Instance.new("TextLabel")
 		end)
 	end)
 end
-function self2.Destroy()
-   game:GetService("CoreGui").ModMenu:Destroy()
 end
-    end
 return Object
 end
 return library
