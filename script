@@ -1,20 +1,27 @@
 local library = {}
 
-function library.Create(Text,CanvasSize)
+function library.Create(Text,CanvasSize,TextScaled)
 if game:GetService("CoreGui"):FindFirstChild("ModMenu")then game:GetService("CoreGui").ModMenu:Destroy() end    
     local Object = {}
     local self2 = Object
     local self = library
+    TextScaled = TextScaled or false
     CanvasSize = CanvasSize or 2
     
-    local ModMenu = Instance.new("ScreenGui")
+local ModMenu = Instance.new("ScreenGui")
 local Title = Instance.new("TextLabel")
 local MinimizeButton = Instance.new("TextButton")
 local Container = Instance.new("Frame")
 local Border = Instance.new("Frame")
 local Main = Instance.new("ScrollingFrame")
 local UIGridLayout = Instance.new("UIGridLayout")
-
+local BaseButton = Instance.new("TextButton")
+local BaseBox = Instance.new("TextBox")
+local BaseSlider = Instance.new("Frame")
+local Slider = Instance.new("Frame")
+local SliderButton = Instance.new("TextButton")
+local SliderBar = Instance.new("Frame")
+local NameLabel = Instance.new("TextLabel")
 ModMenu.Name = "ModMenu"
 ModMenu.Parent = game:WaitForChild("CoreGui")
 ModMenu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -33,6 +40,7 @@ Title.TextColor3 = Color3.fromRGB(215, 215, 215)
 Title.TextSize = 14.000
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Active = true
+Title.TextScaled = TextScaled
 Title.Selectable = true
 Title.Draggable = true
 
@@ -164,7 +172,7 @@ coroutine.wrap(XMHUAAI_fake_script)()
         BaseBox.Text = Text
         BaseBox.PlaceholderText = PlaceholderText
         BaseBox.FocusLost:Connect(function()
-           pcall(Callback)
+           Callback()
         end)
         local function SetText(Text)
            BaseBox.Text = Text 
@@ -249,33 +257,6 @@ local NameLabel = Instance.new("TextLabel")
         SliderBar.BackgroundTransparency = 0.500
         SliderBar.BorderSizePixel = 0
         SliderBar.Size = UDim2.new(0, 0, 0, 12)
-	local top = 100
-	while true do
-		wait()
-		for i = 1,top,1 do
-			SliderBar.BackgroundColor3 = Color3.new(i/top,0/top,0/top)
-			wait()
-		end
-		for i = 1,top,1 do
-			SliderBar.BackgroundColor3 = Color3.new(top/top,i/top,0/top)
-			wait()
-		end
-		for i = 1,top,1 do
-			SliderBar.BackgroundColor3 = Color3.new(top/top,top/top,i/top)
-			wait()
-		end
-		for i = top,1,-1 do
-			SliderBar.BackgroundColor3 = Color3.new(i/top,top/top,top/top)
-			wait()
-		end
-		for i = top,1,-1 do
-			SliderBar.BackgroundColor3 = Color3.new(0/top,i/top,top/top)
-			wait()
-		end
-		for i = top,1,-1 do
-			SliderBar.BackgroundColor3 = Color3.new(0/top,0/top,i/top)
-			wait()
-		end
         
         NameLabel.Name = "NameLabel"
         NameLabel.Parent = Slider
@@ -319,10 +300,121 @@ local NameLabel = Instance.new("TextLabel")
 				releaseconnection:Disconnect()
 			end
 		end)
-	end)
+		end)
+function self2.Dropdown(Name,Items,Callback)
+    Callback = Callback or function()end
+    Items = Items or {}
+    Name = Name or "Dropdown"
+    local BaseDropdown = Instance.new("TextButton")
+local DropDownScroll = Instance.new("ScrollingFrame")
+local UIGridLayout_2 = Instance.new("UIGridLayout")
+local EnabledLabel = Instance.new("TextLabel")
+
+    BaseDropdown.Name = "BaseDropdown"
+    BaseDropdown.Parent = Main
+    BaseDropdown.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    BaseDropdown.BackgroundTransparency = 0.100
+    BaseDropdown.BorderSizePixel = 0
+    BaseDropdown.ClipsDescendants = true
+    BaseDropdown.Position = UDim2.new(0, 0, -0.0233333334, 0)
+    BaseDropdown.Size = UDim2.new(0, 200, 0, 50)
+    BaseDropdown.AutoButtonColor = false
+    BaseDropdown.Font = Enum.Font.SourceSans
+    BaseDropdown.Text = Name
+    BaseDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+    BaseDropdown.TextSize = 14.000
+    
+    DropDownScroll.Name = "DropDownScroll"
+    DropDownScroll.Parent = BaseDropdown
+    DropDownScroll.Active = true
+    DropDownScroll.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    DropDownScroll.BackgroundTransparency = 0.300
+    DropDownScroll.BorderSizePixel = 0
+    DropDownScroll.Position = UDim2.new(0, 0, 1.10000002, 0)
+    DropDownScroll.Size = UDim2.new(0, 120, 0, 100)
+    
+    UIGridLayout_2.Parent = DropDownScroll
+    UIGridLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+    UIGridLayout_2.CellPadding = UDim2.new(0, 5, 0, 7)
+    UIGridLayout_2.CellSize = UDim2.new(0, 120, 0, 20)
+    
+    EnabledLabel.Name = "EnabledLabel"
+    EnabledLabel.Parent = BaseDropdown
+    EnabledLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    EnabledLabel.BackgroundTransparency = 1.000
+    EnabledLabel.Position = UDim2.new(0.791666627, 0, 0, 0)
+    EnabledLabel.Size = UDim2.new(0, 25, 0, 25)
+    EnabledLabel.Font = Enum.Font.SourceSans
+    EnabledLabel.Text = "+"
+    EnabledLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    EnabledLabel.TextSize = 14.000
+    local dropped = false
+        
+        BaseDropdown.MouseButton1Click:Connect(function()
+            if dropped == false then
+                dropped = true
+                BaseDropdown.ClipsDescendants = true
+                EnabledLabel.Text = "+"
+            else
+                dropped = false
+                BaseDropdown.ClipsDescendants = false
+                EnabledLabel.Text = "-"
+            end
+        end)
+        for i,v in next, Items do
+            local BaseButton_2 = Instance.new("TextButton")
+            BaseButton_2.Name = v
+            BaseButton_2.Parent = DropDownScroll
+            BaseButton_2.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            BaseButton_2.BackgroundTransparency = 0.100
+            BaseButton_2.BorderSizePixel = 0
+            BaseButton_2.Position = UDim2.new(0, 0, -0.0233333334, 0)
+            BaseButton_2.Size = UDim2.new(0, 200, 0, 50)
+            BaseButton_2.AutoButtonColor = false
+            BaseButton_2.Font = Enum.Font.SourceSans
+            BaseButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+            BaseButton_2.TextSize = 14.000
+            BaseButton_2.Text = v
+
+            BaseButton_2.MouseButton1Click:Connect(function()
+               Callback(v)
+               _G.Items0 = Items[1]
+               _G.Items1 = Items[2]
+               _G.Items2 = Items[3]
+               _G.Items3 = Items[4]
+           end)
+        end
+local top = 100
+	while true do
+		wait()
+		for i = 1,top,1 do
+			SliderBar.BackgroundColor3 = Color3.new(i/top,0/top,0/top)
+			wait()
+		end
+		for i = 1,top,1 do
+			SliderBar.BackgroundColor3 = Color3.new(top/top,i/top,0/top)
+			wait()
+		end
+		for i = 1,top,1 do
+			SliderBar.BackgroundColor3 = Color3.new(top/top,top/top,i/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			SliderBar.BackgroundColor3 = Color3.new(i/top,top/top,top/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			SliderBar.BackgroundColor3 = Color3.new(0/top,i/top,top/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			SliderBar.BackgroundColor3 = Color3.new(0/top,0/top,i/top)
+			wait()
+		end
+	end
+end
 end
 end
 return Object
-end
 end
 return library
