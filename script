@@ -1,0 +1,299 @@
+local library = {}
+
+function library.Create(Text)
+if game:GetService("CoreGui"):FindFirstChild("ModMenu")then game:GetService("CoreGui").ModMenu:Destroy() end    
+    local Object = {}
+    local self2 = Object
+    local self = library
+    
+    local ModMenu = Instance.new("ScreenGui")
+local Title = Instance.new("TextLabel")
+local MinimizeButton = Instance.new("TextButton")
+local Container = Instance.new("Frame")
+local Border = Instance.new("Frame")
+local Main = Instance.new("ScrollingFrame")
+local UIGridLayout = Instance.new("UIGridLayout")
+
+ModMenu.Name = "ModMenu"
+ModMenu.Parent = game:WaitForChild("CoreGui")
+ModMenu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ModMenu.ResetOnSpawn = false
+
+Title.Name = "Title"
+Title.Parent = ModMenu
+Title.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Title.BorderSizePixel = 0
+Title.Position = UDim2.new(0.453632146, 0, 0.329039812, 0)
+Title.Size = UDim2.new(0, 120, 0, 20)
+Title.ZIndex = 3
+Title.Font = Enum.Font.SourceSans
+Title.Text = "  DevBreaker"
+Title.TextColor3 = Color3.fromRGB(215, 215, 215)
+Title.TextSize = 14.000
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Active = true
+Title.Selectable = true
+Title.Draggable = true
+
+MinimizeButton.Name = "MinimizeButton"
+MinimizeButton.Parent = Title
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MinimizeButton.BackgroundTransparency = 1.000
+MinimizeButton.Position = UDim2.new(0.833333313, 0, 0, 0)
+MinimizeButton.Size = UDim2.new(0, 20, 0, 20)
+MinimizeButton.Font = Enum.Font.SourceSans
+MinimizeButton.Text = "-"
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinimizeButton.TextSize = 14.000
+
+Container.Name = "Container"
+Container.Parent = Title
+Container.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Container.BackgroundTransparency = 0.300
+Container.BorderSizePixel = 0
+Container.Position = UDim2.new(0, 0, 1, 0)
+Container.Size = UDim2.new(0, 120, 0, 300)
+Container.ZIndex = 0
+
+Border.Name = "Border"
+Border.Parent = Container
+Border.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Border.BorderSizePixel = 0
+Border.Size = UDim2.new(0, 120, 0, 1)
+
+Main.Name = "Main"
+Main.Parent = Container
+Main.Active = true
+Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Main.BackgroundTransparency = 1.000
+Main.Position = UDim2.new(0, 0, 0.00333333341, 0)
+Main.Size = UDim2.new(0, 135, 0, 298)
+Main.ScrollBarImageTransparency = 1
+
+UIGridLayout.Parent = Main
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellPadding = UDim2.new(0, 0, 0, 3)
+UIGridLayout.CellSize = UDim2.new(0, 120, 0, 25)
+
+local function QBYF_fake_script() -- MinimizeButton.MinimizeScript 
+	local script = Instance.new('Script', MinimizeButton)
+
+	local minimized = false
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		if minimized == false then
+			minimized = true
+			script.Parent.Parent.ClipsDescendants = true
+			script.Parent.Text = "+"
+		else
+			minimized = false
+			script.Parent.Parent.ClipsDescendants = false
+			script.Parent.Text = "-"
+		end
+	end)
+end
+coroutine.wrap(QBYF_fake_script)()
+local function XMHUAAI_fake_script() -- Border.Script 
+	local script = Instance.new('Script', Border)
+
+	local top = 100
+	while true do
+		wait()
+		for i = 1,top,1 do
+			script.Parent.BackgroundColor3 = Color3.new(i/top,0/top,0/top)
+			wait()
+		end
+		for i = 1,top,1 do
+			script.Parent.BackgroundColor3 = Color3.new(top/top,i/top,0/top)
+			wait()
+		end
+		for i = 1,top,1 do
+			script.Parent.BackgroundColor3 = Color3.new(top/top,top/top,i/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			script.Parent.BackgroundColor3 = Color3.new(i/top,top/top,top/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			script.Parent.BackgroundColor3 = Color3.new(0/top,i/top,top/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			script.Parent.BackgroundColor3 = Color3.new(0/top,0/top,i/top)
+			wait()
+		end
+	end
+end
+coroutine.wrap(XMHUAAI_fake_script)()
+
+    function self2.Button(Text,Callback)
+        Callback = Callback or function() end
+        local BaseButton = Instance.new("TextButton")
+        BaseButton.Name = "BaseButton"
+        BaseButton.Parent = Main
+        BaseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        BaseButton.BackgroundTransparency = 0.100
+        BaseButton.BorderSizePixel = 0
+        BaseButton.Position = UDim2.new(0, 0, -0.0233333334, 0)
+        BaseButton.Size = UDim2.new(0, 200, 0, 50)
+        BaseButton.AutoButtonColor = false
+        BaseButton.Font = Enum.Font.SourceSans
+        BaseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        BaseButton.TextSize = 14.000
+        BaseButton.Text = Text
+        BaseButton.MouseButton1Click:Connect(function()
+            pcall(Callback)
+        end)
+    end
+    function self2.Box(Text,PlaceholderText,Callback)
+        Callback = Callback or function() end
+        local BaseBox = Instance.new("TextBox")
+        BaseBox.Name = "BaseBox"
+        BaseBox.Parent = Main
+        BaseBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        BaseBox.BackgroundTransparency = 0.100
+        BaseBox.BorderSizePixel = 0
+        BaseBox.Size = UDim2.new(0, 200, 0, 50)
+        BaseBox.Font = Enum.Font.SourceSans
+        BaseBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+        BaseBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+        BaseBox.TextSize = 14.000
+        BaseBox.Text = Text
+        BaseBox.PlaceholderText = PlaceholderText
+        BaseBox.FocusLost:Connect(function()
+           pcall(Callback)
+        end)
+        local function SetText(Text)
+           BaseBox.Text = Text 
+        end
+        local function SetPlaceholder(Text)
+           BaseBox.PlaceholderText = Text 
+        end
+    end
+    function self2.Checkbox(Text,Callback)
+        Callback = Callback or function() end
+         _G.Status = false
+         local fStat = Color3.fromRGB(255,0,0)
+         local tStat = Color3.fromRGB(0,255,0)
+         local BaseButton = Instance.new("TextButton")
+         BaseButton.Name = "BaseCheckbox"
+         BaseButton.Parent = Main
+         BaseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+         BaseButton.BackgroundTransparency = 0.100
+         BaseButton.BorderSizePixel = 0
+         BaseButton.Position = UDim2.new(0, 0, -0.0233333334, 0)
+         BaseButton.Size = UDim2.new(0, 200, 0, 50)
+         BaseButton.AutoButtonColor = false
+         BaseButton.Font = Enum.Font.SourceSans
+         BaseButton.TextColor3 = fStat
+         BaseButton.TextSize = 14.000
+         BaseButton.Text = Text
+         BaseButton.MouseButton1Click:Connect(function()
+                 if _G.Status == false then
+                     _G.Status = true
+                     BaseButton.TextColor3 = tStat
+                 else
+                    _G.Status = false
+                    BaseButton.TextColor3 = fStat
+                 end
+                 pcall(Callback)
+         end)
+         function Set(Value)
+            _G.Status = Value
+            if BaseButton.TextColor3 == tStat then
+                BaseButton.TextColor3 = fStat 
+            else
+                BaseButton.TextColor3 = tStat
+         end
+         end
+    function self2.Slider(Text,Options,Callback)
+        local BaseSlider = Instance.new("Frame")
+local Slider = Instance.new("Frame")
+local SliderButton = Instance.new("TextButton")
+local SliderBar = Instance.new("Frame")
+local NameLabel = Instance.new("TextLabel")
+        Text = Text or "Slider"
+        Options.min = Options.min or 0
+        Options.max = Options.max or 100
+        Callback = Callback or function()end
+        BaseSlider.Name = "BaseSlider"
+        BaseSlider.Parent = Main
+        BaseSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        BaseSlider.BackgroundTransparency = 0.100
+        BaseSlider.BorderSizePixel = 0
+        BaseSlider.Size = UDim2.new(0, 100, 0, 100)
+        
+        Slider.Name = "Slider"
+        Slider.Parent = BaseSlider
+        Slider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        Slider.BorderSizePixel = 0
+        Slider.Position = UDim2.new(0.0833333358, 0, 0.239999995, 0)
+        Slider.Size = UDim2.new(0, 100, 0, 12)
+        
+        SliderButton.Name = "SliderButton"
+        SliderButton.Parent = Slider
+        SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        SliderButton.BackgroundTransparency = 1.000
+        SliderButton.BorderSizePixel = 0
+        SliderButton.Size = UDim2.new(0, 100, 0, 12)
+        SliderButton.Font = Enum.Font.SourceSans
+        SliderButton.Text = ""
+        SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+        SliderButton.TextSize = 14.000
+        
+        SliderBar.Name = "SliderBar"
+        SliderBar.Parent = SliderButton
+        SliderBar.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        SliderBar.BackgroundTransparency = 0.500
+        SliderBar.BorderSizePixel = 0
+        SliderBar.Size = UDim2.new(0, 0, 0, 12)
+        
+        NameLabel.Name = "NameLabel"
+        NameLabel.Parent = Slider
+        NameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        NameLabel.BackgroundTransparency = 1.000
+        NameLabel.Size = UDim2.new(0, 100, 0, 12)
+        NameLabel.Font = Enum.Font.SourceSans
+        NameLabel.Text = Text..": "..Options.min
+        NameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        NameLabel.TextSize = 12.000
+        local minvalue = Options.min
+	local maxvalue = Options.max
+	Callback = Callback or function() end
+	
+	local mouse = game.Players.LocalPlayer:GetMouse()
+	local uis = game:GetService("UserInputService")
+	local Value;
+	
+	SliderButton.MouseButton1Down:Connect(function()
+		Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 100) * SliderBar.AbsoluteSize.X) + tonumber(minvalue)) or 0
+		pcall(function()
+			Callback(Value)
+		end)
+		SliderBar.Size = UDim2.new(0, math.clamp(mouse.X - SliderBar.AbsolutePosition.X, 0, 100), 0, 12)
+		moveconnection = mouse.Move:Connect(function()
+			NameLabel.Text = Text..": "..Value
+			Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 100) * SliderBar.AbsoluteSize.X) + tonumber(minvalue))
+			pcall(function()
+				Callback(Value)
+			end)
+			SliderBar.Size = UDim2.new(0, math.clamp(mouse.X - SliderBar.AbsolutePosition.X, 0, 100), 0, 12)
+		end)
+		releaseconnection = uis.InputEnded:Connect(function(Mouse)
+			if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+				Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 100) * SliderBar.AbsoluteSize.X) + tonumber(minvalue))
+				pcall(function()
+					Callback(Value)
+				end)
+				SliderBar.Size = UDim2.new(0, math.clamp(mouse.X - SliderBar.AbsolutePosition.X, 0, 100), 0, 12)
+				moveconnection:Disconnect()
+				releaseconnection:Disconnect()
+			end
+		end)
+	end)
+end
+    end
+return Object
+end
+return library
