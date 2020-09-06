@@ -246,10 +246,36 @@ local NameLabel = Instance.new("TextLabel")
         
         SliderBar.Name = "SliderBar"
         SliderBar.Parent = SliderButton
-        SliderBar.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
         SliderBar.BackgroundTransparency = 0.500
         SliderBar.BorderSizePixel = 0
         SliderBar.Size = UDim2.new(0, 0, 0, 12)
+	local top = 100
+	while true do
+		wait()
+		for i = 1,top,1 do
+			SliderBar.BackgroundColor3 = Color3.new(i/top,0/top,0/top)
+			wait()
+		end
+		for i = 1,top,1 do
+			SliderBar.BackgroundColor3 = Color3.new(top/top,i/top,0/top)
+			wait()
+		end
+		for i = 1,top,1 do
+			SliderBar.BackgroundColor3 = Color3.new(top/top,top/top,i/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			SliderBar.BackgroundColor3 = Color3.new(i/top,top/top,top/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			SliderBar.BackgroundColor3 = Color3.new(0/top,i/top,top/top)
+			wait()
+		end
+		for i = top,1,-1 do
+			SliderBar.BackgroundColor3 = Color3.new(0/top,0/top,i/top)
+			wait()
+		end
         
         NameLabel.Name = "NameLabel"
         NameLabel.Parent = Slider
